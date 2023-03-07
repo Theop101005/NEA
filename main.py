@@ -69,3 +69,4 @@ while True:
 
     # updates the frames of the game
     pygame.display.update()
+    #note
