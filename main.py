@@ -1,72 +1,26 @@
 import pygame
-import sys
-#note
+from sys import exit
 
 pygame.init()
 
-# screen resolution
-res = (1500, 900)
+window_icon = pygame.image.load("blood-cells.png")
+pygame.display.set_icon(window_icon)
 
-# opens up a window
-screen = pygame.display.set_mode(res)
+screen = pygame.display.set_mode((800, 400))
+# establishing a surface for the game to be displayed on
 
-# white color
-color = (255, 255, 255)
+pygame.display.set_caption("Grimcell")
+# naming the surface
 
-# light shade of the button
-color_light = (170, 170, 170)
-
-# dark shade of the button
-color_dark = (100, 100, 100)
-
-# stores the width of the
-# screen into a variable
-width = screen.get_width()
-
-# stores the height of the
-# screen into a variable
-height = screen.get_height()
-
-# defining a font
-smallfont = pygame.font.SysFont('arial', 35)
-
-# rendering a text written in
-# this font
-text = smallfont.render('quit', True, color)
+clock = pygame.time.Clock()
+# creating a clock to base frame rate off of
 
 while True:
-
-    for ev in pygame.event.get():
-
-        if ev.type == pygame.QUIT:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
             pygame.quit()
+            exit()
 
-            # checks if a mouse is clicked
-        if ev.type == pygame.MOUSEBUTTONDOWN:
-
-            # if the mouse is clicked on the
-            # button the game is terminated
-            if width / 2 <= mouse[0] <= width / 2 + 140 and height / 2 <= mouse[1] <= height / 2 + 40:
-                pygame.quit()
-
-                # fills the screen with a color
-    screen.fill((60, 25, 60))
-
-    # stores the (x,y) coordinates into
-    # the variable as a tuple
-    mouse = pygame.mouse.get_pos()
-
-    # if mouse is hovered on a button it
-    # changes to lighter shade
-    if width / 2 <= mouse[0] <= width / 2 + 140 and height / 2 <= mouse[1] <= height / 2 + 40:
-        pygame.draw.rect(screen, color_light, [width / 2, height / 2, 140, 40])
-
-    else:
-        pygame.draw.rect(screen, color_dark, [width / 2, height / 2, 140, 40])
-
-        # superimposing the text onto our button
-    screen.blit(text, (width / 2 + 50, height / 2))
-
-    # updates the frames of the game
     pygame.display.update()
-    #note
+    clock.tick(60)
+    # This is to cap the frame rate of the game and stop any issues that would occur through high frame rates
