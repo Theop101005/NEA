@@ -1,8 +1,7 @@
 import pygame
 from sys import exit
 
-pygame.init()
-
+pygame.init
 window_icon = pygame.image.load("blood-cells.png")
 pygame.display.set_icon(window_icon)
 
@@ -15,11 +14,17 @@ pygame.display.set_caption("Grimcell")
 clock = pygame.time.Clock()
 # creating a clock to base frame rate off of
 
+test_surface = pygame.Surface((100,200))
+test_surface.fill("gold4")
+
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
+
+    screen.blit(test_surface,(0,0))
 
     pygame.display.update()
     clock.tick(60)
