@@ -1,6 +1,7 @@
 import pygame
 from sys import exit
 pygame.font.init()
+from levels import *
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 400
@@ -10,7 +11,7 @@ pygame.init
 window_icon = pygame.image.load("blood-cells.png")
 pygame.display.set_icon(window_icon)
 
-mainMenu = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 # establishing a surface for the game to be displayed on
 
 pygame.display.set_caption("Grimcell")
@@ -22,29 +23,11 @@ clock = pygame.time.Clock()
 
 mouse = pygame.mouse.get_pos()
 
-class Button:
-    def __init__(self, text, x_pos, y_pos, width, height, screen):
-        self.text = text
-        self.x_pos = x_pos
-        self.y_pos = y_pos
-        self.width = width
-        self.height = height
-        self.screen = screen
-        self.draw()
+def level_select():
+    PLAY_MOUSE_POS = pygame.mouse.get_pos()
 
-    def draw(self):
-        button_text = font.render(self.text, True, "black")
-        button_rect = pygame.rect.Rect((self.x_pos, self.y_pos),(self.width ,self.height))
-        pygame.draw.rect(self.screen, "gray", button_rect, 0, 5)
-        pygame.draw.rect(self.screen, "black", button_rect, 2, 5)
-        mainMenu.blit(button_text, (self.x_pos + 10, self.y_pos + 10))
-
-while True:
-    mainMenu.fill("white")
-    clock.tick(FPS)
-    level_select_btn = Button("Level Select", 350, 100, 100, 30, mainMenu)
-    level_create_btn = Button("Level Create", 350, 150, 100, 30, mainMenu)
-    endless_btn = Button("Endless", 350, 200, 100, 30, mainMenu)
+    screen.fill("white")
+    level_1_btn()
 
 
     for event in pygame.event.get():
@@ -52,7 +35,33 @@ while True:
             pygame.quit()
             exit()
 
-    pygame.display.flip()
+    pygame.display.update()
+
+def main_menu():
+    level_select_btn = Button("Level Select", 350, 100, 100, 30, screen)
+    level_create_btn = Button("Level Create", 350, 150, 100, 30, screen)
+    endless_btn = Button("Endless", 350, 200, 100, 30, screen)
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit()
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if level_select_btn.check_click():
+                level_select()
+                break
+    
+    pygame.display.update()
+
+    
+
+
+
+    
+#main menu
+while True:
+    clock.tick(FPS)
+    main_menu()
     pygame.display.update()
    
     # This is to cap the frame rate of the game and stop any issues that would occur through high frame rates
