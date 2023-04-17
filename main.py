@@ -21,6 +21,12 @@ FPS = 60
 clock = pygame.time.Clock()
 # creating a clock to base frame rate off of
 
+
+sprite_speed = 5
+sprite_x = SCREEN_WIDTH / 2
+sprite_y = SCREEN_HEIGHT / 2
+sprite_image = pygame.image.load("Idle.png")
+
 mouse = pygame.mouse.get_pos()
 
 def level_select():
@@ -50,14 +56,30 @@ def main_menu():
             if level_select_btn.check_click():
                 level_select()
                 break
-    
+                
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        sprite_x -= sprite_speed
+        sprite_direction = "left"
+    elif keys[pygame.K_RIGHT]:
+        sprite_x += sprite_speed
+        sprite_direction = "right"
+    elif keys[pygame.K_UP]:
+        sprite_y -= sprite_speed
+        sprite_direction = "up"
+    elif keys[pygame.K_DOWN]:
+        sprite_y += sprite_speed
+        sprite_direction = "down"
+        
+    if sprite_direction == "left":
+        screen.blit(pygame.transform.flip(sprite_image, True, False), (sprite_x, sprite_y))
+    else:
+        screen.blit(sprite_image, (sprite_x, sprite_y))
+
+
     pygame.display.update()
 
-    
 
-
-
-    
 #main menu
 while True:
     clock.tick(FPS)
