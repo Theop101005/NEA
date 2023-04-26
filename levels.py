@@ -20,7 +20,6 @@ class Button:
         self.width = width
         self.height = height
         self.screen = screen
-        self.draw()
 
     def check_click(self):
         mouse_pos = pygame.mouse.get_pos()
