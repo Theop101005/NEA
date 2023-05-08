@@ -26,14 +26,16 @@ sprite_speed = 5
 sprite_x = SCREEN_WIDTH / 2
 sprite_y = SCREEN_HEIGHT / 2
 sprite_image = pygame.image.load("Idle.png")
+sprite_direction = "left"
 
 mouse = pygame.mouse.get_pos()
 
 def level_select():
+    level_1_btn = Button("Level 1", 30, 30, 100, 50, screen)
     PLAY_MOUSE_POS = pygame.mouse.get_pos()
 
     screen.fill("white")
-    level_1_btn()
+    level_1_btn.draw()
 
 
     for event in pygame.event.get():
@@ -48,6 +50,10 @@ def main_menu():
     level_create_btn = Button("Level Create", 350, 150, 100, 30, screen)
     endless_btn = Button("Endless", 350, 200, 100, 30, screen)
 
+    level_select_btn.draw()
+    level_create_btn.draw()
+    endless_btn.draw()
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -56,29 +62,8 @@ def main_menu():
             if level_select_btn.check_click():
                 level_select()
                 break
-                
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT]:
-        sprite_x -= sprite_speed
-        sprite_direction = "left"
-    elif keys[pygame.K_RIGHT]:
-        sprite_x += sprite_speed
-        sprite_direction = "right"
-    elif keys[pygame.K_UP]:
-        sprite_y -= sprite_speed
-        sprite_direction = "up"
-    elif keys[pygame.K_DOWN]:
-        sprite_y += sprite_speed
-        sprite_direction = "down"
-        
-    if sprite_direction == "left":
-        screen.blit(pygame.transform.flip(sprite_image, True, False), (sprite_x, sprite_y))
-    else:
-        screen.blit(sprite_image, (sprite_x, sprite_y))
-
 
     pygame.display.update()
-
 
 #main menu
 while True:
