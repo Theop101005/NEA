@@ -4,8 +4,6 @@ pygame.init()
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 400
 
-sprite_direction = "down"
-
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 font = pygame.font.SysFont("freesansbold.ttf", 18)
@@ -20,6 +18,7 @@ class Button:
         self.width = width
         self.height = height
         self.screen = screen
+        self.display = True
 
     def check_click(self):
         mouse_pos = pygame.mouse.get_pos()
@@ -42,5 +41,3 @@ class Button:
 
         screen.blit(button_text, (self.x_pos + 10, self.y_pos + 10))
 
-def level_1_btn():
-	level_1_btn = Button("Level 1", 30, 30, 100, 50, screen)
